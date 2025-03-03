@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class EmailValidation {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner sc = new Scanner(System.in);
+	// TODO Auto-generated method stub
+	Scanner sc = new Scanner(System.in);
         System.out.print("Enter email address: ");
         String email = sc.nextLine().trim();
         if (isValidEmail(email)) {
@@ -21,19 +21,44 @@ public class EmailValidation {
 		if (email == null || email.length() < 5) {
             return false;
         }
-        int atidx = -1, dotidx = -1;
-        boolean atFound = false;
-        for (int i = 0; i < email.length(); i++) {
-            char ch = email.charAt(i);
-            if (ch == '@') {
-                if (atFound) return false;
-                atidx = i;
-                atFound = true;
-            } else if (ch == '.') {
-            	dotidx = i;
-            }
-        }
-        return atidx > 0 && dotidx > atidx + 1 && dotidx < email.length() - 1;
+		if(!email.contains("@")) return false;
+		int domainStart=-1;
+		for(int i=0;i<email.length();i++)
+		{
+			if(email.charAt(i)=='@')
+			{
+				domainStart=i+1;
+			}
+		}
+		String userName=email.substring(0,domainStart-1);
+		if(userName.charAt(0)=='.'||!(checkUserName(userName)))
+		{
+			return false;
+		}
+		String domainName=email.substring(domainStart, email.length());
+		if(!(checkDomain(domainName)))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean checkDomain(String domainName) {
+		// TODO Auto-generated method stub
+		if(!(domainName.contains(".")))
+			return false;
+		if(domainName.length()<5) return false;
+		String spl="!#$%&'*+/=?^_{|}~";
+		for(int i=0;i<domainName.length();i++)
+		{
+			if(spl.contains(""+domainName.charAt(i))) return false;
+		}
+		return true;
+	}
+
+	private static boolean checkUserName(String username) {
+		// TODO Auto-generated method stub
+		return username.length()>3 &&  !(username.contains(" ")) && !(username.contains(",")) && !(username.contains("<>")) && !(username.contains("[]")) && !(username.contains("..")) && !(username.contains("()"));
 	}
 
 }
