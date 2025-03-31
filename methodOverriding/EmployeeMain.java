@@ -5,7 +5,7 @@ public class EmployeeMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Employee emp1 = new HourlyEmployee("sara", 101, "IT", 180.0, 280, "Developer", "2022-01-15");
-        Employee emp2 = new SalariedEmployee("Bob", 102, "HR", 60000, "Manager", "2020-05-20");
+        Employee emp2 = new SalariedEmployee("saratha", 102, "HR", 60000, "Manager", "2020-05-20");
 
         System.out.println("\nEmployee Details:");
         System.out.println(emp1.getEmployeeDetails());
